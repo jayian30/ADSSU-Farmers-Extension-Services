@@ -1,0 +1,19 @@
+# .gitignore
+
+# PHP / Web
+.env
+*.log
+
+# C# / .NET Build Artifacts
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE Settings
+.qodo/
+.vscode/
+.idea/
