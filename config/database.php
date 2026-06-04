@@ -36,9 +36,37 @@ class Database {
         // Create PDO instance
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+            $this->checkForMigrations();
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             die("Database Connection Error: " . $this->error);
+        }
+    }
+
+    private function checkForMigrations() {
+        try {
+            // Check if 'users' table exists by running a query
+            $stmt = $this->dbh->query("SHOW TABLES LIKE 'users'");
+            if ($stmt->rowCount() == 0) {
+                // Database is empty, run setup.sql
+                $setupSqlFile = dirname(__DIR__) . '/database/setup.sql';
+                if (file_exists($setupSqlFile)) {
+                    $sql = file_get_contents($setupSqlFile);
+                    // Remove CREATE DATABASE and USE statements to avoid permissions/isolation issues on hosting platforms
+                    $sql = preg_replace('/CREATE DATABASE IF NOT EXISTS\s+\w+;/i', '', $sql);
+                    $sql = preg_replace('/USE\s+\w+;/i', '', $sql);
+                    $this->dbh->exec($sql);
+                }
+                
+                // Then run seed2.sql to populate initial values
+                $seedSqlFile = dirname(__DIR__) . '/seed2.sql';
+                if (file_exists($seedSqlFile)) {
+                    $sql = file_get_contents($seedSqlFile);
+                    $this->dbh->exec($sql);
+                }
+            }
+        } catch (Exception $e) {
+            // Log or ignore to prevent app crash if schema query fails
         }
     }
 
