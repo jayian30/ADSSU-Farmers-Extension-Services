@@ -1,6 +1,6 @@
 <?php
 // index.php (Public Landing Page)
-session_start();
+require_once 'includes/auth.php';
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') header("Location: admin/dashboard.php");
     else if ($_SESSION['role'] === 'extension_worker') header("Location: extension-worker/dashboard.php");

@@ -1,14 +1,12 @@
 <?php
 // index.php (Login Page)
-session_start();
+require_once 'includes/auth.php';
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') header("Location: admin/dashboard.php");
     else if ($_SESSION['role'] === 'extension_worker') header("Location: extension-worker/dashboard.php");
     else header("Location: farmer/dashboard.php");
     exit();
 }
-// Include auth to generate csrf token
-require_once 'includes/auth.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
