@@ -1,8 +1,7 @@
 -- database/setup.sql
 
--- Create the database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS adssu_farmers_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE adssu_farmers_db;
+-- CREATE DATABASE IF NOT EXISTS adssu_farmers_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE adssu_farmers_db;
 
 -- 1. users table
 CREATE TABLE IF NOT EXISTS users (

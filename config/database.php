@@ -48,13 +48,16 @@ class Database {
             // Check if 'users' table exists by running a query
             $stmt = $this->dbh->query("SHOW TABLES LIKE 'users'");
             if ($stmt->rowCount() == 0) {
+                // Remove error file if it exists from previous attempts
+                $errorFile = dirname(__DIR__) . '/migration_error.txt';
+                if (file_exists($errorFile)) {
+                    @unlink($errorFile);
+                }
+
                 // Database is empty, run setup.sql
                 $setupSqlFile = dirname(__DIR__) . '/database/setup.sql';
                 if (file_exists($setupSqlFile)) {
                     $sql = file_get_contents($setupSqlFile);
-                    // Remove CREATE DATABASE and USE statements to avoid permissions/isolation issues on hosting platforms
-                    $sql = preg_replace('/CREATE DATABASE IF NOT EXISTS\s+\w+;/i', '', $sql);
-                    $sql = preg_replace('/USE\s+\w+;/i', '', $sql);
                     $this->dbh->exec($sql);
                 }
                 
@@ -66,7 +69,8 @@ class Database {
                 }
             }
         } catch (Exception $e) {
-            // Log or ignore to prevent app crash if schema query fails
+            // Log the migration error to a file in root so it can be inspected
+            file_put_contents(dirname(__DIR__) . '/migration_error.txt', $e->getMessage() . "\n" . $e->getTraceAsString());
         }
     }
 
