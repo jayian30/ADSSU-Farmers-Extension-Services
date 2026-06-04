@@ -1,18 +1,18 @@
 INSERT INTO users (username, password, full_name, role, email, status, created_at) VALUES 
-('tboy', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Tomas Boy', 'worker', 'tboy@adssu.gov.ph', 'active', NOW()),
-('gmanalo', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Gina Manalo', 'worker', 'gina@adssu.gov.ph', 'active', NOW()),
-('jfernandez', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Jose Fernandez', 'worker', 'josef@adssu.gov.ph', 'active', NOW()),
-('mbautista', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Mark Bautista', 'worker', 'markb@adssu.gov.ph', 'active', NOW()),
-('ksantos', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Karen Santos', 'worker', 'karen@adssu.gov.ph', 'active', NOW()),
-('crivera', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Carlos Rivera', 'worker', 'carlos@adssu.gov.ph', 'active', NOW()),
-('lmartin', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Luis Martin', 'worker', 'luis.m@adssu.gov.ph', 'active', NOW()),
-('pcastro', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Paula Castro', 'worker', 'paula@adssu.gov.ph', 'active', NOW()),
-('rquizon', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Ramon Quizon', 'worker', 'ramon@adssu.gov.ph', 'active', NOW()),
-('etolentino', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Elena Tolentino', 'worker', 'elena@adssu.gov.ph', 'active', NOW()),
-('vrosario', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Victor Rosario', 'worker', 'victor@adssu.gov.ph', 'active', NOW()),
-('nsy', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Nina Sy', 'worker', 'nina@adssu.gov.ph', 'active', NOW()),
-('fmercado', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Felix Mercado', 'worker', 'felix@adssu.gov.ph', 'active', NOW()),
-('dnavarro', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Diana Navarro', 'worker', 'diana@adssu.gov.ph', 'active', NOW())
+('tboy', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Tomas Boy', 'extension_worker', 'tboy@adssu.gov.ph', 'active', NOW()),
+('gmanalo', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Gina Manalo', 'extension_worker', 'gina@adssu.gov.ph', 'active', NOW()),
+('jfernandez', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Jose Fernandez', 'extension_worker', 'josef@adssu.gov.ph', 'active', NOW()),
+('mbautista', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Mark Bautista', 'extension_worker', 'markb@adssu.gov.ph', 'active', NOW()),
+('ksantos', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Karen Santos', 'extension_worker', 'karen@adssu.gov.ph', 'active', NOW()),
+('crivera', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Carlos Rivera', 'extension_worker', 'carlos@adssu.gov.ph', 'active', NOW()),
+('lmartin', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Luis Martin', 'extension_worker', 'luis.m@adssu.gov.ph', 'active', NOW()),
+('pcastro', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Paula Castro', 'extension_worker', 'paula@adssu.gov.ph', 'active', NOW()),
+('rquizon', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Ramon Quizon', 'extension_worker', 'ramon@adssu.gov.ph', 'active', NOW()),
+('etolentino', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Elena Tolentino', 'extension_worker', 'elena@adssu.gov.ph', 'active', NOW()),
+('vrosario', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Victor Rosario', 'extension_worker', 'victor@adssu.gov.ph', 'active', NOW()),
+('nsy', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Nina Sy', 'extension_worker', 'nina@adssu.gov.ph', 'active', NOW()),
+('fmercado', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Felix Mercado', 'extension_worker', 'felix@adssu.gov.ph', 'active', NOW()),
+('dnavarro', '$2a$11$0.K1f6o2N2Bf0v.T6oD6UuI8zV5.7b2M.W.2wDkP0iV5Z.P/UuU2m', 'Diana Navarro', 'extension_worker', 'diana@adssu.gov.ph', 'active', NOW())
 ON DUPLICATE KEY UPDATE username=username;
 
 INSERT INTO farmers (rsbsa_number, full_name, address, barangay, contact_number, farm_type, crop_type, farm_size, status, created_at) VALUES

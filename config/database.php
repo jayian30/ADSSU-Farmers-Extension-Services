@@ -45,16 +45,32 @@ class Database {
 
     private function checkForMigrations() {
         try {
-            // Check if 'users' table exists by running a query
-            $stmt = $this->dbh->query("SHOW TABLES LIKE 'users'");
-            if ($stmt->rowCount() == 0) {
+            // Check if users table exists
+            $tablesExist = $this->dbh->query("SHOW TABLES LIKE 'users'")->rowCount() > 0;
+            $hasUsers = false;
+            if ($tablesExist) {
+                $hasUsers = $this->dbh->query("SELECT COUNT(*) FROM users")->fetchColumn() > 0;
+            }
+
+            if (!$tablesExist || !$hasUsers) {
                 // Remove error file if it exists from previous attempts
                 $errorFile = dirname(__DIR__) . '/migration_error.txt';
                 if (file_exists($errorFile)) {
                     @unlink($errorFile);
                 }
 
-                // Database is empty, run setup.sql
+                // If tables exist but have no users, drop all to avoid constraint conflicts on recreation
+                if ($tablesExist) {
+                    $this->dbh->exec("SET FOREIGN_KEY_CHECKS = 0;");
+                    $tables = ['training_attendance', 'field_visits', 'assistance_records', 'notifications', 'activity_logs', 'announcements', 'trainings', 'agricultural_programs', 'farmers', 'extension_workers', 'users'];
+                    foreach ($tables as $table) {
+                        $this->dbh->exec("DROP TABLE IF EXISTS `$table`Grid;"); // Safeguard
+                        $this->dbh->exec("DROP TABLE IF EXISTS `$table` ;");
+                    }
+                    $this->dbh->exec("SET FOREIGN_KEY_CHECKS = 1;");
+                }
+
+                // Database is empty or broken, run setup.sql
                 $setupSqlFile = dirname(__DIR__) . '/database/setup.sql';
                 if (file_exists($setupSqlFile)) {
                     $sql = file_get_contents($setupSqlFile);
