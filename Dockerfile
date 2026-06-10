@@ -38,5 +38,14 @@ RUN mkdir -p /var/www/html/uploads && \
     chmod -R 755 /var/www/html && \
     chmod -R 777 /var/www/html/uploads
 
+# Copy the entrypoint script and configure it
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # Expose port 80
 EXPOSE 80
+
+CMD ["apache2-foreground"]
