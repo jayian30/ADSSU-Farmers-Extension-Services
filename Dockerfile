@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache mod_rewrite for clean URLs
 RUN a2enmod rewrite
 
+# Disable conflicting MPMs and ensure mpm_prefork is enabled for mod_php compatibility
+RUN a2dismod mpm_event mpm_worker || true && a2enmod mpm_prefork
+
 # Enable .htaccess support by allowing overrides
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
