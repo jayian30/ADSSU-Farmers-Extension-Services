@@ -2,11 +2,20 @@
 // config/database.php
 
 // Read environment variables (supports Railway and other host environments), or fallback to local XAMPP settings
-$db_host = getenv('MYSQLHOST') !== false ? getenv('MYSQLHOST') : 'localhost';
-$db_user = getenv('MYSQLUSER') !== false ? getenv('MYSQLUSER') : 'root';
-$db_pass = getenv('MYSQLPASSWORD') !== false ? getenv('MYSQLPASSWORD') : '';
-$db_name = getenv('MYSQLDATABASE') !== false ? getenv('MYSQLDATABASE') : 'adssu_farmers_db';
-$db_port = getenv('MYSQLPORT') !== false ? getenv('MYSQLPORT') : '3307'; // Local XAMPP uses 3307
+// Railway uses MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE
+// Some Railway deployments use MYSQL_HOST, MYSQL_PORT, etc. — we check both.
+$db_host = getenv('MYSQLHOST') !== false ? getenv('MYSQLHOST') 
+         : (getenv('MYSQL_HOST') !== false ? getenv('MYSQL_HOST') : 'localhost');
+$db_user = getenv('MYSQLUSER') !== false ? getenv('MYSQLUSER')
+         : (getenv('MYSQL_USER') !== false ? getenv('MYSQL_USER') : 'root');
+$db_pass = getenv('MYSQLPASSWORD') !== false ? getenv('MYSQLPASSWORD')
+         : (getenv('MYSQL_PASSWORD') !== false ? getenv('MYSQL_PASSWORD') : '');
+$db_name = getenv('MYSQLDATABASE') !== false ? getenv('MYSQLDATABASE')
+         : (getenv('MYSQL_DATABASE') !== false ? getenv('MYSQL_DATABASE') : 'adssu_farmers_db');
+// Railway MySQL uses port 3306; local XAMPP uses 3307
+$db_port = getenv('MYSQLPORT') !== false ? getenv('MYSQLPORT')
+         : (getenv('MYSQL_PORT') !== false ? getenv('MYSQL_PORT')
+         : (getenv('MYSQLHOST') !== false ? '3306' : '3307'));
 
 define('DB_HOST', $db_host);
 define('DB_USER', $db_user);
