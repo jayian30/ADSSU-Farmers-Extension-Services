@@ -88,3 +88,53 @@ ON DUPLICATE KEY UPDATE assigned_barangay=assigned_barangay;
 INSERT INTO extension_workers (user_id, contact_number, assigned_barangay, created_at) 
 SELECT id, '09170000014', 'San Pedro', NOW() FROM users WHERE username = 'dnavarro'
 ON DUPLICATE KEY UPDATE assigned_barangay=assigned_barangay;
+
+-- ==========================================
+-- Add mock data for Juan Farmer (RSBSA-12345)
+-- ==========================================
+
+-- Variables to link records dynamically
+SET @juan_farmer_id = (SELECT id FROM farmers WHERE rsbsa_number = 'RSBSA-12345' LIMIT 1);
+SET @worker_user_id = (SELECT id FROM users WHERE username = 'worker' LIMIT 1);
+SET @admin_user_id = (SELECT id FROM users WHERE username = 'admin' LIMIT 1);
+
+-- 1. Announcements
+INSERT INTO announcements (title, content, author_id, target_role, created_at) VALUES
+('Free Fertilizer Distribution Notice', 'Good day FESMS Farmers! Please visit the Municipal Agriculture Office starting tomorrow to receive your free fertilizer allocation under the Rice Competitiveness Enhancement Fund. Bring your RSBSA ID or QR Code.', @admin_user_id, 'farmer', NOW()),
+('Upcoming Soil Health Seminar', 'We will be conducting a seminar on soil pH and health diagnostics this Friday. Details have been posted in the Training tab. Free soil kits will be given to attendees.', @admin_user_id, 'farmer', NOW()),
+('Extreme Weather Advisory', 'Please prepare for heavy rains over the next 48 hours. Clear drainage channels around your crop areas to prevent waterlogging.', @admin_user_id, 'all', NOW())
+ON DUPLICATE KEY UPDATE title=title;
+
+-- 2. Trainings
+INSERT INTO trainings (title, description, schedule_date, location, organizer_id, status, created_at) VALUES
+('Organic Fertilizer Preparation and Application', 'Learn how to make organic compost, vermicompost, and liquid organic fertilizers using farm waste.', '2026-06-25 09:00:00', 'Brgy. Central Multi-Purpose Hall', @worker_user_id, 'upcoming', NOW()),
+('Integrated Pest and Disease Management (IPDM)', 'Workshop on biological and eco-friendly control of common pests affecting rice and corn crop.', '2026-06-30 13:00:00', 'Extension Demonstration Farm', @worker_user_id, 'upcoming', NOW()),
+('Intro to Modern Hydroponics and Urban Farming', 'Basic course on soil-less crop farming suited for limited space.', '2026-05-15 08:30:00', 'Agri-Tech Center Lab', @worker_user_id, 'completed', NOW()),
+('Sustainable Water Management and Irrigation', 'Best practices for rainwater harvesting and drip irrigation maintenance.', '2026-05-20 10:00:00', 'Barangay Central School Ground', @worker_user_id, 'completed', NOW())
+ON DUPLICATE KEY UPDATE title=title;
+
+-- 3. Training Attendance (Juan Farmer attended two completed courses)
+SET @training_hydroponics_id = (SELECT id FROM trainings WHERE title = 'Intro to Modern Hydroponics and Urban Farming' LIMIT 1);
+SET @training_water_id = (SELECT id FROM trainings WHERE title = 'Sustainable Water Management and Irrigation' LIMIT 1);
+
+INSERT INTO training_attendance (training_id, farmer_id, status, created_at) VALUES
+(@training_hydroponics_id, @juan_farmer_id, 'attended', NOW()),
+(@training_water_id, @juan_farmer_id, 'attended', NOW())
+ON DUPLICATE KEY UPDATE training_id=training_id;
+
+-- 4. Assistance Records (Juan Farmer received cacao seedlings, organic fertilizer, and seeds)
+SET @program_cacao_id = (SELECT id FROM agricultural_programs WHERE program_name = 'Cacao Production Boost' LIMIT 1);
+SET @program_seeds_id = (SELECT id FROM agricultural_programs WHERE program_name = 'Vegetable Seeds Distribution' LIMIT 1);
+
+INSERT INTO assistance_records (farmer_id, program_id, assistance_type, quantity, unit, date_received, distributed_by, notes, created_at) VALUES
+(@juan_farmer_id, @program_cacao_id, 'Cacao Seedlings', 25.00, 'pcs', '2026-03-12', @worker_user_id, 'Grafted cacao seedlings for trial planting.', NOW()),
+(@juan_farmer_id, @program_seeds_id, 'Organic Fertilizers', 5.00, 'bags', '2026-04-05', @worker_user_id, 'Premium organic compost bags.', NOW()),
+(@juan_farmer_id, @program_seeds_id, 'Hybrid Seeds Pack', 2.00, 'kg', '2026-04-05', @worker_user_id, 'Petchay, Tomato, and Eggplant seed variety pack.', NOW())
+ON DUPLICATE KEY UPDATE farmer_id=farmer_id;
+
+-- 5. Field Visits (Extension worker visited Juan Farmer twice)
+INSERT INTO field_visits (worker_id, farmer_id, visit_date, purpose, notes, farmer_concerns, photo_url, gps_latitude, gps_longitude, created_at) VALUES
+(@worker_user_id, @juan_farmer_id, '2026-05-10 10:30:00', 'Routine Crop Assessment', 'Inspected rice crop health. Crops are showing good vegetative growth. Encouraged use of organic fertilizer.', 'Reported slight leafhopper activity. Recommended monitoring.', NULL, 7.190700, 125.455700, NOW()),
+(@worker_user_id, @juan_farmer_id, '2026-05-28 14:00:00', 'Soil Sample Collection', 'Collected soil samples from three points of the rice paddy for pH testing.', 'Interested in soil amelioration assistance program.', NULL, 7.190800, 125.455800, NOW())
+ON DUPLICATE KEY UPDATE farmer_id=farmer_id;
+
